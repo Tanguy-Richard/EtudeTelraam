@@ -13,3 +13,9 @@ end_date (idem mais pour la date de fin) et interval (période de vacances au fo
 \description{
 Import des vacances de l'académie de Rennes
 }
+\examples{
+\dontrun{
+vacs <- vacances()
+}
+
+}

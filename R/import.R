@@ -15,7 +15,7 @@
 #' @importFrom dplyr mutate filter
 #'
 #' @examples
-#'
+#' \dontrun{
 #' liste_capteurs <- c("9000002156", "9000001844")
 #'
 #' liste_noms <- c("Burel","RteVitré")
@@ -24,8 +24,7 @@
 #'
 #' Donnee <- import(liste_capteurs, liste_noms, clef)$donnee
 #' head(Donnee)
-#'
-#'
+#' }
 import <- function(liste_capteurs, liste_noms, clef) {
 
   # initialisation sous la forme de dataframes vides

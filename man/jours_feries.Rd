@@ -13,7 +13,7 @@ un vecteur de date au format lubridate
 Import des jours fériés sur 25 ans
 }
 \examples{
-
+\dontrun{
 jours <- jours_feries()
-
+}
 }

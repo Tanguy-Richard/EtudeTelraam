@@ -9,11 +9,12 @@
 #' @importFrom lubridate ymd_hms
 #'
 #' @examples
+#' \dontrun{
 #' date1 <- "2021-03-01 12:35:21"
 #' date2 <- "2022-07-01 03:15:33"
 #'
 #' test_df <- decouper_periode(date1, date2)
-#'
+#' }
 #'
 decouper_periode <- function(date1, date2){
 

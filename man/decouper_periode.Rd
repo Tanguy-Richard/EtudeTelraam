@@ -18,10 +18,11 @@ Dataframe avec une ligne par période de 3 mois et deux colonnes "debut" et "fin
 Découper une période en "tranches" de 3 mois
 }
 \examples{
+\dontrun{
 date1 <- "2021-03-01 12:35:21"
 date2 <- "2022-07-01 03:15:33"
 
 test_df <- decouper_periode(date1, date2)
-
+}
 
 }

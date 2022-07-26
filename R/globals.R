@@ -2,6 +2,10 @@ utils::globalVariables(
   c(
     '.',
     'segment_id',
+    'car',
+    'heavy',
+    'pedestrian',
+    'bike',
     'bike_lft',
     'bike_rgt',
     'car_lft',
@@ -13,6 +17,12 @@ utils::globalVariables(
     'uptime',
     'description',
     'start_date',
-    'end_date'
+    'end_date',
+    'car_speed_hist_0to70plus',
+    'vit_moins10',
+    'vit_moins20',
+    'vit_moins30',
+    'vit_moins40',
+    'vehic'
   )
 )

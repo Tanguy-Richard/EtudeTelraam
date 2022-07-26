@@ -9,9 +9,9 @@
 #' @importFrom lubridate ymd
 #'
 #' @examples
-#'
+#' \dontrun{
 #' jours <- jours_feries()
-#'
+#' }
 jours_feries <- function(){
   # Récupération des jours au format: "YYYY-MM-DD"
   jours <- "https://calendrier.api.gouv.fr/jours-feries/metropole.json" %>%

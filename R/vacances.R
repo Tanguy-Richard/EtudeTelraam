@@ -12,6 +12,10 @@
 #'
 #'
 #' @examples
+#' \dontrun{
+#' vacs <- vacances()
+#' }
+#'
 vacances <- function(){
   url = "https://data.education.gouv.fr/api/v2/catalog/datasets/fr-en-calendrier-scolaire/exports/json"
   Vacances <- GET(

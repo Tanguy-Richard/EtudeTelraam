@@ -20,5 +20,7 @@ Imports:
     dplyr,
     tidyr,
     magrittr,
-    utils
+    utils,
+    ggplot2,
+    tibble
 Language: fr
