@@ -1,0 +1,24 @@
+Package: EtudeTelraam
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("Tanguy", "Richard", , "lorenzitanguy@gmail.com", role = c("aut", "cre"))
+Description: Import et analyse de données issues de capteurs Telraam. Le package est développé initialement pour une étude des des données de Chateaubourg.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    jsonlite,
+    httr,
+    stats,
+    lubridate,
+    dplyr,
+    tidyr,
+    magrittr,
+    utils
+Language: fr

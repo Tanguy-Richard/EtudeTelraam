@@ -1,0 +1,15 @@
+utils::globalVariables(
+  c(
+    '.',
+    'segment_id',
+    'bike_lft',
+    'bike_rgt',
+    'car_lft',
+    'car_rgt',
+    'heavy_lft',
+    'heavy_rgt',
+    'pedestrian_lft',
+    'pedestrian_rgt',
+    'uptime'
+  )
+)
