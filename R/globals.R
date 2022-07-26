@@ -10,6 +10,9 @@ utils::globalVariables(
     'heavy_rgt',
     'pedestrian_lft',
     'pedestrian_rgt',
-    'uptime'
+    'uptime',
+    'description',
+    'start_date',
+    'end_date'
   )
 )
