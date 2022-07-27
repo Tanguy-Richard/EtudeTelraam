@@ -22,5 +22,6 @@ Imports:
     magrittr,
     utils,
     ggplot2,
-    tibble
+    tibble,
+    CPAT
 Language: fr

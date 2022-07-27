@@ -1,19 +1,16 @@
-#' Graphique de la part d'usagers atteignant certaines vitesses selon la circulation
-#'
-#' Trace sur un graphique le pourcentages d'usagers arrivant a dépasser respectivement
-#' 10km/h, 20km/h, 30km/h et 40km/h en fonction du  nombres d'usagers par heure (voiture plus poids lourds)
+#' Récupération des coordonnées des courbes de lissages des courbes de vitesses
 #'
 #' @param Donnees Tableau issue de l'import de donnée Telraam
 #' @param Id Nom du cateur d'interet
 #' @param orientation Choix de la direction du capteur ("Toute"/"Rgt"/"Lft")
 #'
-#' @return Graphique
+#' @return Un dataframe à 5 colonnes correspondant à l'absisse et aux ordonnées des courbes
 #' @export
 #'
 #' @importFrom stats embed
 #' @importFrom magrittr %>%
-#' @importFrom dplyr mutate filter select arrange
-#' @importFrom ggplot2 ggplot aes geom_smooth geom_line ggtitle labs
+#' @importFrom dplyr mutate filter select arrange bind_cols
+#' @importFrom ggplot2 ggplot aes stat_smooth geom_line ggtitle labs ggplot_build
 #' @importFrom tibble tibble
 #'
 #' @examples
@@ -27,10 +24,10 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' courbe_vitesse(Donnees, "Burel","Toute")
+#' recup_lissage(Donnees, "Burel","Toute")
 #'
 #' }
-courbe_vitesse = function(Donnees,Id,orientation){
+recup_lissage= function(Donnees,Id,orientation){
   # Filtrage des données selon le capteur choisi
   tableau_temp <- Donnees %>% filter(segment_id==Id)
 
@@ -98,10 +95,26 @@ courbe_vitesse = function(Donnees,Id,orientation){
   Vitesse <- c(vitesse10,vitesse20,vitesse30,vitesse40)
   k=length(vehicule)
   Legende <- c(rep("Plus de 10km/h",k),rep("Plus de 20km/h",k),rep("Plus de 30km/h",k),rep("Plus de 40km/h",k))
-  donnee <- tibble(VehG,Vitesse,Legende)
+  donnee_graph <- tibble(VehG,Vitesse,Legende)
 
-  #Graphique
-  ggplot(donnee)+aes(x=VehG, y=Vitesse, color = Legende, group=Legende)+geom_line(color="black")+
-    geom_smooth()+labs(x="Nombre de vehicules sur une tranche horaire", y = "Pourcentage de vehicule depassant la vitesse donnees")+
-    ggtitle("Evolution de la vitesse de conduite selon le nombre d'usagers")
+  # Récupération des données des courbes de lissages
+  p <- ggplot(donnee_graph)+aes(x=VehG, y=Vitesse, color = Legende, group=Legende)+stat_smooth()
+  y <- ggplot_build(p)$data[[1]][,1:3]
+
+  # Création du tableau pour stocké les données
+  Donnee <- NULL
+  for(i in levels(as.factor(y$colour))){
+    Donnee <- bind_cols(Donnee,y[y$colour==i,-1])
+  }
+  # Absisse (nombre de véhicule par heure)
+  X=Donnee[,1]
+  # Ordonnée des courbes de lissages
+  Y=Donnee[,c(2,4,6,8)]
+  # Rangement des colonnes par vitesse:
+  # Il y a un moins grand pourcentage d'usagers dépassant les 40km/h que ceux dépassant 30km/h (etc)
+  Y <- t(t(Y)[order(t(Y)[,1]),])
+  Donnee <- as.data.frame(bind_cols(X,Y))
+  colnames(Donnee) <- c("Nombre de vehicules","plus de 40km/h","plus de 30km/h","plus de 20km/h","plus de 10km/h") #Renomage des colonnes
+
+  return(Donnee)
 }
