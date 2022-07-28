@@ -23,6 +23,11 @@ utils::globalVariables(
     'vit_moins20',
     'vit_moins30',
     'vit_moins40',
-    'vehic'
+    'vehic',
+    'Jsem',
+    'valeur',
+    'chateaubourg',
+    'dfgeo',
+    'oidn'
   )
 )

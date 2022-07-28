@@ -23,5 +23,10 @@ Imports:
     utils,
     ggplot2,
     tibble,
-    CPAT
+    CPAT,
+    forecast,
+    leaflet
 Language: fr
+Depends: 
+    R (>= 2.10)
+LazyData: true
