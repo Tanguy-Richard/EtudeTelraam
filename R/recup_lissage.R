@@ -24,7 +24,7 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' recup_lissage(Donnees, "Burel","Toute")
+#' recup_lissage(Donnees, "Burel","Toute") %>% summary()
 #'
 #' }
 recup_lissage= function(Donnees,Id,orientation){

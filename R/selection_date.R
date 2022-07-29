@@ -7,6 +7,17 @@
 #' sous la forme d'une liste a 2 elements: donnees_correspondantes et donnees_complementaires
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' data(chateaubourg)
+#' vacance <- vacances()
+#'
+#' donnees_filtrees <- selection_date(chateaubourg,vacance) %>%
+#'                         .$donnees_correspondantes
+#'
+#' summary(donnees_filtrees)
+#'
+#' }
 selection_date <- function(donnees, liste_interval){
   dates_correspondantes = unlist(lapply(donnees$date, FUN = function(x){test_date(x,liste_interval)}))
   donnees_correspondantes = donnees[dates_correspondantes,]

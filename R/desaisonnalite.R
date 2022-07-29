@@ -24,10 +24,13 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' Burel_Vitre <- tableau_horaire(donnees_nn_plus,c("Burel","RteVitré"),9,"Lft","Lft")
+#' Burel_Vitre <- donnees_horaire(donnees_nn_plus,c("Burel","RteVitré"),9,"Lft","Lft")
 #'
-#' Burel_traitement <- desaisonalite(Burel_Vitre,"Burel","add")
+#' Burel_traitement <- desaisonalite(Burel_Vitre,"Burel","add")$bruit
+#' Vitre_traitement <- desaisonalite(Burel_Vitre,"RteVitré","add")$bruit
 #'
+#' plot(Burel_Vitre$date,Burel_traitement,type="l")
+#' lines(Burel_Vitre$date,Vitre_traitement,col="red")
 #'}
 #'
 desaisonnalite=function(donnees,col,model){

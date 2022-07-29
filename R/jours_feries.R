@@ -10,7 +10,14 @@
 #'
 #' @examples
 #' \dontrun{
+#' data(chateaubourg)
 #' jours <- jours_feries()
+#'
+#' donnees_filtrees <- selection_date(chateaubourg,vacance) %>%
+#'                         .$donnees_correspondantes
+#'
+#' summary(donnees_filtrees)
+#'
 #' }
 jours_feries <- function(){
   # Récupération des jours au format: "YYYY-MM-DD"

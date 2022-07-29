@@ -13,9 +13,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' vacs <- vacances()
-#' }
+#' data(chateaubourg)
+#' vacance <- vacances()
 #'
+#' donnees_filtrees <- selection_date(chateaubourg,vacance) %>%
+#'                         .$donnees_correspondantes
+#'
+#' summary(donnees_filtrees)
+#'
+#' }
 vacances <- function(){
   url = "https://data.education.gouv.fr/api/v2/catalog/datasets/fr-en-calendrier-scolaire/exports/json"
   Vacances <- GET(
