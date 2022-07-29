@@ -16,6 +16,8 @@
 #' @examples
 #' \dontrun{
 #'
+#'
+#'
 #' liste_capteurs <- c("9000002156", "9000001844")
 #'
 #' liste_noms <- c("Burel","RteVitré")
@@ -24,10 +26,10 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' Burel_Vitre <- donnees_horaire(donnees_nn_plus,c("Burel","RteVitré"),9,"Lft","Lft")
+#' Burel_Vitre <- donnees_horaire(Donnees,c("Burel","RteVitré"),9,"Lft","Lft")
 #'
-#' Burel_traitement <- desaisonalite(Burel_Vitre,"Burel","add")$bruit
-#' Vitre_traitement <- desaisonalite(Burel_Vitre,"RteVitré","add")$bruit
+#' Burel_traitement <- desaisonnalite(Burel_Vitre,"Burel","add")$bruit
+#' Vitre_traitement <- desaisonnalite(Burel_Vitre,"RteVitré","add")$bruit
 #'
 #' plot(Burel_Vitre$date,Burel_traitement,type="l")
 #' lines(Burel_Vitre$date,Vitre_traitement,col="red")

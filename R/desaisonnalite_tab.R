@@ -14,11 +14,12 @@
 #'
 #' @examples
 #' \dontrun{
+#' data(chateaubourg)
 #'
 #' segs <- c("Burel","ParisMarché","ParisArcEnCiel","RteVitré","RueGdDomaine")
 #' dir <- c("Rgt","Lft","Lft","Rgt","Rgt")
 #'
-#' donnees_synchrone <- donnees_horaires_groupes(donnees_nn_plus,segs,9,dir)
+#' donnees_synchrone <- donnees_horaires_groupes(chateaubourg,segs,9,dir)
 #'
 #' donnees_a_analyser <- desaisonnalite_tab(donnees_synchrone)
 #'

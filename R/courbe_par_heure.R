@@ -24,7 +24,7 @@
 #'
 #' periode <- interval(ymd_hms("2021/01/01 00:00:00"),ymd_hms("2022/01/01 00:00:00"))
 #'
-#' courbe_par_heure(donnees_non_nulles,"Burel",periode,"oui","oui",1:5)
+#' courbe_par_heure(chateaubourg,"Burel",periode,"oui","oui",1:5)
 #' }
 courbe_par_heure <- function(donnees,capteur,periode,vacances,JF,SM){
 

@@ -33,7 +33,7 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' Burel_Vitre <- donnees_horaire(donnees_nn_plus,c("Burel","RteVitré"),9,"Lft","Lft")
+#' Burel_Vitre <- donnees_horaire(Donnees,c("Burel","RteVitré"),9,"Lft","Lft")
 #'
 #' Burel_traitement <- desaisonalite(Burel_Vitre,"Burel","add")$bruit
 #' Vitre_traitement <- desaisonalite(Burel_Vitre,"RteVitré","add")$bruit
