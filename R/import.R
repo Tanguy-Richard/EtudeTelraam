@@ -3,6 +3,8 @@
 #' @param liste_capteurs  vecteur des identifiants des capteurs
 #' @param liste_noms  vecteur des noms à donner aux identifiants
 #' @param clef  Votre clef d'accès à l'API
+#' @param date_debut première date d'interet format YYYY-MM-DD (de base "2020-01-01")
+#' @param date_fin dernière date d'interet format YYYY-MM-DD (de base Sys.Date())
 #'
 #' @return une liste de 2 objets: geomet donnant accès aux information géographique sur le capteur
 #'  et donnee donnant accès au données horaire pour chaques capteurs
@@ -24,8 +26,12 @@
 #'
 #' Donnee <- import(liste_capteurs, liste_noms, clef)$donnee
 #' head(Donnee)
+#'
+#' Donnee_2 <- import(liste_capteurs, liste_noms, clef,date_debut = "2021-06-06",
+#'                    date_fin = "2022-08-01")$donnee
+#' head(Donnee_2)
 #' }
-import <- function(liste_capteurs, liste_noms, clef) {
+import <- function(liste_capteurs, liste_noms, clef, date_debut = "2020-01-01", date_fin = Sys.Date()) {
 
   # initialisation sous la forme de dataframes vides
   # pour les donnees totales
@@ -50,8 +56,13 @@ import <- function(liste_capteurs, liste_noms, clef) {
     # Propriete correspondant au mesure sur les dernieres 24h
     df <- df$properties
     # Recuperation des dates d'emission de la premiere et derniere donnee
+
+
     dateInf = df$first_data_package
     dateSup = df$last_data_package
+
+    dateInf <- max(ymd_hms(dateInf),ymd_hms(paste(date_debut," 00:01:00")))
+    dateSup <- min(ymd_hms(dateSup),ymd_hms(paste(date_fin," 23:00:00")))
 
     dfgeo = rbind(dfgeo, id)
 

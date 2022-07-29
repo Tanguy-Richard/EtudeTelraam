@@ -18,3 +18,15 @@ sous la forme d'une liste a 2 elements: donnees_correspondantes et donnees_compl
 \description{
 Filtrage sur l'appartenance à une liste de périodes d'un dataframe
 }
+\examples{
+\dontrun{
+data(chateaubourg)
+vacance <- vacances()
+
+donnees_filtrees <- selection_date(chateaubourg,vacance) \%>\%
+                        .$donnees_correspondantes
+
+summary(donnees_filtrees)
+
+}
+}

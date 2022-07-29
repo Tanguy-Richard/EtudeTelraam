@@ -4,7 +4,13 @@
 \alias{import}
 \title{Import des données Telraam}
 \usage{
-import(liste_capteurs, liste_noms, clef)
+import(
+  liste_capteurs,
+  liste_noms,
+  clef,
+  date_debut = "2020-01-01",
+  date_fin = Sys.Date()
+)
 }
 \arguments{
 \item{liste_capteurs}{vecteur des identifiants des capteurs}
@@ -12,6 +18,10 @@ import(liste_capteurs, liste_noms, clef)
 \item{liste_noms}{vecteur des noms à donner aux identifiants}
 
 \item{clef}{Votre clef d'accès à l'API}
+
+\item{date_debut}{première date d'interet format YYYY-MM-DD (de base "2020-01-01")}
+
+\item{date_fin}{dernière date d'interet format YYYY-MM-DD (de base Sys.Date())}
 }
 \value{
 une liste de 2 objets: geomet donnant accès aux information géographique sur le capteur
@@ -30,5 +40,9 @@ data("clef")
 
 Donnee <- import(liste_capteurs, liste_noms, clef)$donnee
 head(Donnee)
+
+Donnee_2 <- import(liste_capteurs, liste_noms, clef,date_debut = "2021-06-06",
+                   date_fin = "2022-08-01")$donnee
+head(Donnee_2)
 }
 }

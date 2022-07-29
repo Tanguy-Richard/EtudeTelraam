@@ -15,7 +15,13 @@ Import des vacances de l'académie de Rennes
 }
 \examples{
 \dontrun{
-vacs <- vacances()
-}
+data(chateaubourg)
+vacance <- vacances()
 
+donnees_filtrees <- selection_date(chateaubourg,vacance) \%>\%
+                        .$donnees_correspondantes
+
+summary(donnees_filtrees)
+
+}
 }
