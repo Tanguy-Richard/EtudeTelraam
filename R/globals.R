@@ -28,6 +28,16 @@ utils::globalVariables(
     'valeur',
     'chateaubourg',
     'dfgeo',
-    'oidn'
+    'oidn',
+    'total',
+    'Effectif',
+    'Nombre_usagers',
+    'Variance',
+    'Heure',
+    'Periode',
+    'Born1',
+    'Born2',
+    'couleur',
+    'v85'
   )
 )

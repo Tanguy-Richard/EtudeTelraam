@@ -19,11 +19,11 @@ creation_table_heure(
 
 \item{segment}{capteur de référence}
 
-\item{sens}{sens du capteur de référence ()}
+\item{sens}{sens du capteur de référence ("Rgt"/"Lft"/"Toute")}
 
 \item{liste_seg}{vecteur de capteurs à comparer}
 
-\item{liste_sens}{vecteur des sens de capteurs à comparer}
+\item{liste_sens}{vecteur des sens de capteurs à comparer ("Rgt"/"Lft"/"Toute")}
 
 \item{liste_heure}{une liste d'heure pour lesquels on veut la comparaison}
 

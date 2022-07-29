@@ -2,9 +2,9 @@
 #'
 #' @param donnees donnees issues d'un import de données Telraam
 #' @param segment capteur de référence
-#' @param sens sens du capteur de référence ()
+#' @param sens sens du capteur de référence ("Rgt"/"Lft"/"Toute")
 #' @param liste_seg vecteur de capteurs à comparer
-#' @param liste_sens vecteur des sens de capteurs à comparer
+#' @param liste_sens vecteur des sens de capteurs à comparer ("Rgt"/"Lft"/"Toute")
 #' @param heure heure choisie pour l'analyse
 #'
 #' @return Un tableau donc les lignes sont les capteurs à comparés et les jours (nombre entre 1 et 7),

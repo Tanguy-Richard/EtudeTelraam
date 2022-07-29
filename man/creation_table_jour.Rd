@@ -11,11 +11,11 @@ creation_table_jour(donnees, segment, sens, liste_seg, liste_sens, heure)
 
 \item{segment}{capteur de référence}
 
-\item{sens}{sens du capteur de référence ()}
+\item{sens}{sens du capteur de référence ("Rgt"/"Lft"/"Toute")}
 
 \item{liste_seg}{vecteur de capteurs à comparer}
 
-\item{liste_sens}{vecteur des sens de capteurs à comparer}
+\item{liste_sens}{vecteur des sens de capteurs à comparer ("Rgt"/"Lft"/"Toute")}
 
 \item{heure}{heure choisie pour l'analyse}
 }

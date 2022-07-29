@@ -33,7 +33,7 @@
 #'
 #' Donnees <- import(liste_capteurs, liste_noms, clef)$donnee
 #'
-#' tableau_horaire(donnees_nn_plus,c("Burel","RteVitré"),9,"Lft","Lft")
+#' tableau_horaire(Donnees,c("Burel","RteVitré"),9,"Lft","Lft")
 #'
 #' }
 #'
