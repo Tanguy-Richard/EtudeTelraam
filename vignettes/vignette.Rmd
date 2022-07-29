@@ -16,6 +16,152 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(EtudeTelraam)
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
 ```
 
 
+Le package a pour but de fournir des outils pour l'import et l'analyse de données issues de capteurs [Telraam](https://telraam.net/). Il a été développé pour l'association [Agis ta terre](https://www.agistaterre.org/) dans le cadre d'une analyse des données des capteurs installés dans la ville de Chateaubourg.
+
+Ce tutoriel va retracer les étapes importantes dans l'utilisation du package.
+
+
+# Installation
+
+Vous pouvez installer la version de developpement du package depuis [GitHub](https://github.com/) avec:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Tanguy-Richard/EtudeTelraam")
+```
+
+# Import des données
+
+La première étape est d'importer les données depuis des capteurs Telraam.
+Pour pouvoir utiliser la fonction d'import il faut se doter d'une clef d'API (à demander sur le site de Telraam).
+
+Vous devez aussi récupérer les identifiants des capteurs qui vous interessent. La fonction d'import vous
+demande aussi un liste de noms pour renommer vos capteurs (à fournir dans le même ordre que la liste d'identifiant) 
+
+Cela donne pour les deux capteurs suivant un import sous la forme:
+
+```r
+liste_capteurs <- c("9000002156", "9000001844")
+liste_noms <- c("Burel","RteVitré")
+
+clef <- "votre clef"
+
+IMPORT <- import(liste_capteurs, liste_noms, clef)
+
+donnees_mesurees <- IMPORT$donnee
+
+donnees_geographique <- IMPORT$geomet
+```
+
+Le résultat est une liste de 2 data frame, le premier "donnee" est celui qui vous servira le plus et correspond aux données mesurées par les capteurs. Le second "geomet" correspond aux données géographiques des capteurs (utilisé pour les cartes)
+
+La plupart des fonctions du package ne s'applique que sur les dataframes issus de l'import de cette fonction.
+
+Dans la suite on utilisera les dataframes pré-enregistrés correspondant à un import de tout les capteurs de Chateaubourg au 28/07/2022.
+
+```r
+data("chateaubourg")
+chateaubourg
+
+data("capteurs_chateaubourg")
+capteurs_chateaubourg
+```
+
+Exemple d'utilisation pour une fonction tracant les fréquentation horaires et la vitesse V85:
+
+```{r}
+
+data(chateaubourg)
+
+periode <- interval(ymd_hms("2021/01/01 00:00:00"),ymd_hms("2022/01/01 00:00:00"))
+
+courbe_par_heure(chateaubourg,"Burel",periode,"oui","oui",1:5)
+
+```
+
+# Filtrage
+
+Il peut être interessant de filter pour ne garder que les capteurs qui nous interessent. Le nom des capteurs est stocké dans la variable "segment_id". 
+
+```r
+
+data("chateaubourg")
+
+
+donnees_burel <- chateaubourg %>% filter(segment_id=="Burel")
+
+```
+
+On peut utiliser les fonctions "selection_date" et selection_date2" du package pour filtrer sur les dates. le premier permet de filtrer sur une liste d'interval du package lubridate et l'autre sur une liste de date. les fonctions "vacances" et "jours_feries" permettent de charger les dates des vacances de l'académie de Rennes et les jours fériés nationaux. 
+
+
+```r
+data(chateaubourg)
+
+# Pour ne garder que les vacances
+
+vacance <- vacances()
+
+donnees_vacances <- selection_date(chateaubourg,vacance) %>%
+                         .$donnees_correspondantes
+
+# Pour enlever les jours fériés
+
+jours <- jours_feries()
+
+donnees_hors_JF <- selection_date(chateaubourg,vacance) %>%
+                         .$donnees_complementaires
+
+
+```
+
+# Autre traitements
+
+Une bonne partie des fonctions s'appliquent directement sur l'import. Mais d'autres fonctions  nécessitent d'avoir une période de date commune. C'est ce que font les fonctions "donnees_horaire" et "donnees_horaires_groupes"
+
+Passer par ces traitements est necéssaire pour pouvoir ensuite mettre en place des stratégies de regression ou autre traitement nécéssitant des données synchrones. 
+
+La fonction "desaisonnalite_tab" doit être utiliser avec un tableau issue de "donnees_horaires_groupes"
+
+
+
+```{r}
+
+data("chateaubourg")
+
+# Comparaison de la tendance entre 2 capteurs
+
+Burel_Vitre <- suppressMessages(
+  donnees_horaire(chateaubourg,c("Burel","RteVitré"),9,"Lft","Lft")
+  )
+
+Burel_traitement <- desaisonnalite(Burel_Vitre,"Burel","add")$tendance
+Vitre_traitement <- desaisonnalite(Burel_Vitre,"RteVitré","add")$tendance
+
+donneesgraph <- tibble(absisse = Burel_Vitre$date, Bur = scale(Burel_traitement), Vitre =scale(Vitre_traitement) )
+
+ggplot(donneesgraph) + aes(x = absisse) + geom_line(aes(y = Bur, color= "blue")) +
+  geom_line(aes(y = Vitre, color = "red"))
+
+# Regression entre 5 capteurs
+
+segs <- c("Burel","ParisMarché","ParisArcEnCiel","RteVitré","RueGdDomaine")
+dir <- c("Rgt","Lft","Lft","Rgt","Rgt")
+
+donnees_synchrone <- suppressMessages(
+  donnees_horaires_groupes(chateaubourg,segs,9,dir)
+  )
+donnees_a_analyser <- suppressMessages(
+  desaisonnalite_tab(donnees_synchrone)
+  )
+
+mod <- lm(Burel_Rgt~., data = donnees_a_analyser[,-1])
+summary(mod)
+
+```

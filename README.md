@@ -13,7 +13,7 @@ capteurs situés sur la commune de Chateaubourg.
 
 ## Installation
 
-YVous pouvez installer la version de developpement du package depuis
+Vous pouvez installer la version de developpement du package depuis
 [GitHub](https://github.com/) avec:
 
 ``` r
